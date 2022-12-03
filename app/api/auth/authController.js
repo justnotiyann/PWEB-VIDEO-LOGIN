@@ -1,26 +1,44 @@
-const Users = require("../models/Users");
+const Users = require("../../models/usersModel");
 const argon2 = require("argon2");
 const { StatusCodes } = require("http-status-codes");
 
-const signUp = async (req, res, next) => {
+exports.renderSignIn = (req, res, next) => {
+  try {
+    res.render("signin");
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+exports.renderSignUp = (req, res, next) => {
+  try {
+    res.render("signup");
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+exports.signUp = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     const checkEmail = await Users.findOne({ email });
     if (checkEmail) {
-      res.json({
+      res.status(StatusCodes.BAD_REQUEST).json({
         msg: "email telah terdaftar",
       });
     } else {
       const hashPass = await argon2.hash(password, 10);
-      const result = new Users({ email, password: hashPass }).save();
+      const result = new Users({
+        email: email.toLowerCase(),
+        password: hashPass,
+      }).save();
 
-      if (!result) {
-        res.json({
+      if (result) {
+        res.status(StatusCodes.OK).json({
           msg: "Berhasil mendaftar",
         });
       } else {
-        res.json({
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
           msg: "Gagal mendaftar",
         });
       }
@@ -29,8 +47,7 @@ const signUp = async (req, res, next) => {
     console.log(e);
   }
 };
-
-const signIn = async (req, res, next) => {
+exports.signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -40,20 +57,20 @@ const signIn = async (req, res, next) => {
       res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Credentials" });
     } else {
       const verifyPass = await argon2.verify(
-        password,
-        getEmailFromDatabase.password
+        getEmailFromDatabase.password,
+        password
       );
       if (!verifyPass) {
         res
           .status(StatusCodes.BAD_REQUEST)
           .json({ msg: "Invalid Credentials" });
       } else {
-        res.status(StatusCodes.OK).json({ msg: "Invalid Credentials" });
+        req.session.email = getEmailFromDatabase.email;
+        req.session.role = getEmailFromDatabase.role;
+        res.status(StatusCodes.OK).json({ msg: "Selamat Datang" });
       }
     }
   } catch (e) {
     console.log(e);
   }
 };
-
-module.exports = { signUp, signIn };

@@ -3,17 +3,14 @@
 <section id="form-login">
   <div class="container">
     <div class="row justify-content-center align-items-center">
-      <div class="col-8">
+      <div class="col-7">
         <div class="card p-5">
-          <h1 class="fw-bold">Form Login</h1>
-          <form action="/auth/signin" method="POST" autocomplete="off">
-            <div class="col">
-              <label for="email" class="form-label">Masukkan email anda</label>
-              <input type="email" required class="form-control" name="email" />
-            </div>
+          <h3 class="fw-bold">Halaman Reset Password</h1>
+          <form action="/reset/change" method="POST" autocomplete="off">
             <div class="col mb-3">
+              <input type="hidden" name="email" id="email" value="<%= result.email %>">
               <label for="password" required class="form-label"
-                >Masukkan password anda</label
+                >Masukkan Password anda</label
               >
               <input
                 type="password"
@@ -23,17 +20,15 @@
               />
             </div>
             <div class="col mb-3">
-              <div class="row">
-                <div class="col-6">
-                  <a href="/reset">Lupa Password ?</a>
-                </div>
-                <div class="col-6">
-                  <p>
-                    Belum mempunyai akun ?
-                    <a href="/auth/signup">Daftar disini</a>
-                  </p>
-                </div>
-              </div>
+              <label for="confirmPass" required class="form-label"
+                >Masukkan Kembali Password anda</label
+              >
+              <input
+                type="password"
+                required
+                class="form-control"
+                name="confirmPass"
+              />
             </div>
             <div class="col">
               <button class="btn btn-success w-100">Login !</button>

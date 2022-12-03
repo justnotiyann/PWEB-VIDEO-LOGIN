@@ -1,0 +1,31 @@
+<%- include('./partials/head') %>
+
+<section id="form-login">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-5">
+        <div class="card p-5">
+          <h3 class="fw-bold">Halaman Reset Password</h3>
+          <form action="/reset" method="POST" autocomplete="off">
+            <div class="col mb-3">
+              <label for="email" class="form-label">Masukkan email anda</label>
+              <input type="email" required class="form-control" name="email" />
+            </div>
+            <div class="col">
+              <button class="btn btn-success w-100">Reset Password</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #form-login {
+    margin-top: 8em;
+    border-radius: 10px;
+  }
+</style>
+
+<%- include('./partials/footer') %>
