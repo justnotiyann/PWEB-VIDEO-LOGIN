@@ -1,0 +1,54 @@
+<%- include('./head') %>
+
+<section id="form-login">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-6">
+        <div class="card p-5">
+          <h1>Form Login</h1>
+          <form action="/">
+            <div class="col">
+              <label for="email" class="form-label">Masukkan email anda</label>
+              <input type="email" required class="form-control" name="email" />
+            </div>
+            <div class="col mb-3">
+              <label for="password" required class="form-label"
+                >Masukkan password anda</label
+              >
+              <input
+                type="password"
+                required
+                class="form-control"
+                name="password"
+              />
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class="col-6">
+                  <a href="">Lupa Password ?</a>
+                </div>
+                <div class="col-6">
+                  <p>
+                    Belum mempunyai akun ? <a href="/signup">Daftar disini</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <button class="btn btn-success">Login !</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #form-login {
+    margin-top: 10em;
+    border-radius: 10px;
+  }
+</style>
+
+<%- include('./footer') %>
